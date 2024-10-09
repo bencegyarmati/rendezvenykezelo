@@ -5,7 +5,6 @@ import { JegyService } from "./services/jegyService";
 
 const rendezvenyService = new RendezvenyService();
 
-// Rendezvény létrehozása
 const koncert1: Rendezveny = {
   nev: "Rock Koncert",
   helyszin: "Budapest Park",
@@ -29,10 +28,9 @@ const fesztival1: Rendezveny = {
 
 rendezvenyService.letrehoz(fesztival1);
 
-// Rendezvények listázása
 const rendezvenyek = rendezvenyService.listaz();
 
-// Rendezvények megjelenítése
+
 function rendezvenyMegjelenites(rendezveny: Rendezveny): void {
     console.log("Név:", rendezveny.nev);
     console.log("Helyszín:", rendezveny.helyszin);
@@ -59,18 +57,19 @@ function rendezvenyMegjelenites(rendezveny: Rendezveny): void {
 
   rendezvenyek.forEach(rendezvenyMegjelenites);
 
-// Jegyvásárlás
+
 const jegyService = new JegyService(rendezvenyService);
 jegyService.vasarolJegyet("Rock Koncert", {
   nev: "Kovács Anna",
   email: "kovacs.anna@example.com",
 });
 
-// Rendezvények keresése
+
 const keresettRendezvenyek = rendezvenyService.keres(
-  undefined,
-  "Koncert",
-  new Date("2024-01-01"),
-  new Date("2024-12-31")
-);
-keresettRendezvenyek.forEach(rendezvenyMegjelenites);
+    "Rock Koncert", // vagy undefined, ha nem szeretnéd a nevet szűrni
+    "Koncert",
+    new Date("2024-01-01"),
+    new Date("2024-12-31")
+  );
+  keresettRendezvenyek.forEach(rendezvenyMegjelenites);
+  

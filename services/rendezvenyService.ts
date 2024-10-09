@@ -1,29 +1,20 @@
 import { Rendezveny } from "../models/rendezveny";
 import { naplózás } from "../utils/dekoratorok";
 
-
-export function helyiNaplózás(target: any, propertyKey: string, descriptor: PropertyDescriptor): void {
-
-    console.log(`Method ${propertyKey} has been called`);
-    const originalMethod = descriptor.value;
-    descriptor.value = function(...args: any[]) {
-        const result = originalMethod.apply(this, args);
-        return result;
-    };
-}
-  
-
 export class RendezvenyService {
-    [x: string]: any;
+  [x: string]: any;
   private rendezvenyek: Rendezveny[] = [];
- 
+
+  
   async letrehoz(rendezveny: Rendezveny): Promise<void> {
     try {
-    this.rendezvenyek.push(rendezveny);
-  } catch (error) {
-    console.error(error);
-  }
+      // ... aszinkron művelet, pl. adatbázisba mentés ...
+      this.rendezvenyek.push(rendezveny);
+    } catch (hiba) {
+      console.error("Hiba a rendezvény létrehozása során:", hiba);
+      // ... további hibakezelés, pl. egyedi hiba dobása ...
     }
+  }
 
   szerkeszt(nev: string, ujRendezveny: Rendezveny): void {
     const index = this.rendezvenyek.findIndex((r) => r.nev === nev);
@@ -43,10 +34,21 @@ export class RendezvenyService {
   // Keresés kategória alapján
   keresKategoria(kategoriaNev: string): Rendezveny[] {
     return this.rendezvenyek.filter((r) => r.kategoria.nev === kategoriaNev);
-    
   }
 
+  keres(
+    nev?: string,
+    kategoriaNev?: string,
+    idotol?: Date,
+    idoig?: Date
+  ): Rendezveny[] {
+    return this.rendezvenyek.filter((r) => {
+      return (
+        (!nev || r.nev.includes(nev)) &&
+        (!kategoriaNev || r.kategoria.nev === kategoriaNev) &&
+        (!idotol || r.ido >= idotol) &&
+        (!idoig || r.ido <= idoig)
+      );
+    });
+  }
 }
-
-
-

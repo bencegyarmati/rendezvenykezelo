@@ -12,7 +12,6 @@ export class JegyService {
       console.log(
         `${resztvevo.nev} jegyet vásárolt a(z) ${rendezvenyNev} rendezvényre.`
       );
-      // ... további logika a jegyvásárláshoz, pl. fizetés, email küldés ...
     } else {
       throw new Error("Nincs ilyen rendezvény.");
     }
