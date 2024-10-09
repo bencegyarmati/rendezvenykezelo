@@ -7,4 +7,10 @@ export interface Rendezveny {
   ido: Date;
   resztvevok: Resztvevo[];
   kategoria: Kategoria;
+  // opcionális
+  leiras?: string;  
+  ar?: number;  
+  jegyTipusok?: string[]; 
+  korhatar?: number;  
+  eloadok?: string[];  
 }
